@@ -29,7 +29,27 @@ body{
     font-family:'open sans',sans-serif;
     font-size:32px;
 }
-
+.hero-content{
+    padding-left:30px;
+    font-family:'open sans', sans-serif;
+    font-size:18px;
+    color:#BB5E5E;
+}
+.hero-intro{
+    width:max-content;
+}
+span.name{
+    color:#256559; 
+    font-weight:bolder;
+    font-size:32px;
+}
+.role{
+    color:#256559;
+    font-size:24px;
+}
+.intro-2{
+    font-size:14px;
+}
 .r-main{
     width:100%;
     display:flex;
