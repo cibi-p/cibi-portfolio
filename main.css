@@ -9,22 +9,22 @@ body{
     padding:0px;
     margin:0px;
 }
-.hero{
+.page-container{
     width:100%;
     height:100vh;
     display:flex;
     flex-direction:row;
 }
-.hero-left{
+.left{
     position:relative;
-    width:30%;
+    width:30% !important;
     height:100vh;
     background-color: #58AB9C;
     display:flex;
     align-items:center;
     justify-content:center;
 }
-.hero-left p{
+.left p{
     color:white;
     font-family:'open sans',sans-serif;
     font-size:32px;
@@ -79,4 +79,17 @@ header nav a{
     width:50px;
     display:inline-block;
     padding:10px;
+}
+
+.skills{
+    height:100vh;
+}
+ul{
+    list-style-type:none;
+    font-family:'open-sans',sans-serif;
+}
+li{
+    padding:10px;
+    font-size:20px;
+    color:#256559;
 }
