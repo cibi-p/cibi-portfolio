@@ -7,7 +7,16 @@
 body{
     background: #FFD4B2;
     padding:0px;
-    margin:0px;
+    margin:0px; 
+}
+.container{
+    height: 100vh;
+    overflow-y:scroll;
+    width:100vw;
+    scroll-snap-type: y mandatory;
+}
+section{
+    scroll-snap-align: start;
 }
 .page-container{
     width:100%;
@@ -92,4 +101,7 @@ li{
     padding:10px;
     font-size:20px;
     color:#256559;
+}
+section{
+    scroll-snap-align:start;
 }
