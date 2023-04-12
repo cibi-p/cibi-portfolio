@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Information Hiding: Steganography done with JavaScript</title>
+		<meta content="index, follow" name="robots">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+	</head>
+	<body>
+		<div id="main">
+			<h1>Steganography</h1>
+			<div id="left">
+				<h2>Image:</h2>
+				<input id="file" type="file"/><br/>
+				<div id="original" class="half">
+					<h2>Plain Image:</h2>
+					<img id="img" src="tshirts-20.jpg"/>
+				</div>
+				<h2>Text:<span id="capacity"></span></h2>
+				<textarea id="text" placeholder="Enter Message Here..."></textarea>
+				<div class="btns">
+					<span id="hide" class="btn">Hide</span>
+					<span id="read" class="btn">Read</span>
+				</div>
+			</div>
+			<div id="right">
+				<div id="stego" class="half">
+					<h2>Encoded Image:</h2>
+					<img id="cover" src=""/>
+					<a id="download" class="btn small" download="cover.png" rel="nofollow"><strong>Download</strong></a>
+				</div>
+				<div id="messageArea" class="invisible">
+					<h2>Message:</h2>
+					<div id="message"></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="project info">
+				<h1>Project Done By</h1>
+				<div class="name-container">
+					<p>Arunapriya A G,<br>ECE 2nd Year,<br> GCE, Bargur</p>
+					<p>Arunapriya A G,<br>ECE 2nd Year,<br> GCE, Bargur</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="steganography.js"></script>
+		<script type="text/javascript">
+
+		function handleFileSelect(evt) {
+			var original = document.getElementById("original"),
+				stego = document.getElementById("stego"),
+				img = document.getElementById("img"),
+				cover = document.getElementById("cover"),
+				message = document.getElementById("message");
+			if(!original || !stego) return;
+
+			var files = evt.target.files; // FileList object
+
+			// Loop through the FileList and render image files as thumbnails.
+			for (var i = 0, f; f = files[i]; i++) {
+
+				// Only process image files.
+				if (!f.type.match('image.*')) {
+					continue;
+				}
+
+				var reader = new FileReader();
+
+				// Closure to capture the file information.
+				reader.onload = (function(theFile) {
+					return function(e) {
+						img.src = e.target.result;
+						img.title = escape(theFile.name);
+						stego.className = "half invisible";
+						cover.src = "";
+						message.innerHTML="";
+						message.parentNode.className="invisible";
+						updateCapacity();
+					};
+				})(f);
+
+				// Read in the image file as a data URL.
+				reader.readAsDataURL(f);
+			}
+		}
+
+		function hide() {
+			var stego = document.getElementById("stego"),
+				img = document.getElementById("img"),
+				cover = document.getElementById("cover"),
+				message = document.getElementById("message"),
+				textarea = document.getElementById("text"),
+				download = document.getElementById("download");
+			if(img && textarea) {
+				cover.src = steg.encode(textarea.value, img);
+				stego.className = "half";
+				message.innerHTML="";
+				message.parentNode.className="invisible";
+				download.href=cover.src.replace("image/png", "image/octet-stream");
+			}
+		}
+
+		function read() {
+			var img = document.getElementById("img"),
+				cover = document.getElementById("cover"),
+				message = document.getElementById("message"),
+				textarea = document.getElementById("text");
+			if(img && textarea) {
+				message.innerHTML = steg.decode(img);
+				if(message.innerHTML !== "") {
+					message.parentNode.className="";
+					textarea.value = message.innerHTML;
+					updateCapacity();
+				}
+			}
+		}
+
+		function updateCapacity() {
+			var img = document.getElementById('img'),
+				textarea = document.getElementById('text');
+			if(img && text)
+				document.getElementById('capacity').innerHTML='('+textarea.value.length + '/' + steg.getHidingCapacity(img) +' chars)';
+		}
+
+		window.onload = function(){
+			document.getElementById('file').addEventListener('change', handleFileSelect, false);
+			document.getElementById('hide').addEventListener('click', hide, false);
+			document.getElementById('read').addEventListener('click', read, false);
+			document.getElementById('text').addEventListener('keyup', updateCapacity, false);
+			hide();
+			updateCapacity();
+		};
+		</script>
+	</body>
+</html>
