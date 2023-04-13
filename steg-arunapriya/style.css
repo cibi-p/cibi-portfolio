@@ -4,6 +4,7 @@ body{
     flex-direction:Column;
     justify-content: center;
     align-items: center;
+    width:max-content;
 }
 #main h1{
 text-align:center;
